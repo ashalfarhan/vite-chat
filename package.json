@@ -10,8 +10,9 @@
   "scripts": {
     "server": "yarn workspace server",
     "client": "yarn workspace client",
-    "dev": "concurrently -n Server,Client \"yarn server dev\"  \"yarn client dev\"",
-    "build": "yarn server build && yarn client build"
+    "shared": "yarn workspace shared",
+    "dev": "concurrently -n Shared,Server,Client \"yarn shared dev\" \"yarn server dev\"  \"yarn client dev\"",
+    "build": "yarn shared build && yarn server build && yarn client build"
   },
   "devDependencies": {
     "concurrently": "^6.3.0"

@@ -1,6 +1,7 @@
 import express from 'express'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
+import { EVENT_NAMES } from 'shared'
 
 const app = express()
 const server = createServer(app)
@@ -11,7 +12,7 @@ const clients = new Set<string>()
 
 io.on('connection', (socket) => {
   clients.add(socket.id)
-  socket.broadcast.emit('NEW_CONNECTED', socket.id)
+  socket.broadcast.emit(EVENT_NAMES.NEW_CONNECTED, socket.id)
   io.emit('TOTAL_CLIENTS', clients.size)
   socket.on('INCOMING_CHAT', (payload) => {
     io.emit('INCOMING_CHAT', {

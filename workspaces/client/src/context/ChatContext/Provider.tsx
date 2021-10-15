@@ -1,4 +1,5 @@
 import { FC, useCallback, useEffect, useReducer, useRef } from 'react'
+import  * as EVENT from 'shared'
 import { ChatContext } from '.'
 import { socket } from '../../libs/socketio'
 import { chatStateeducer, initialChatState } from './reducer'
@@ -21,7 +22,7 @@ const ChatProvider: FC = (props) => {
     [state.user.username]
   )
   useEffect(() => {
-    socket.on('NEW_CONNECTED', (payload) => {
+    socket.on(EVENT.EVENT_NAMES.NEW_CONNECTED, (payload) => {
       dispatch({ type: 'user/newUser', payload })
     })
     socket.on('INCOMING_CHAT', (payload) => {
